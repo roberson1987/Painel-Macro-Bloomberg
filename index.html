@@ -2,31 +2,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Painel Macro - Bloomberg Style</title>
+<title>Terminal Macro</title>
 
 <style>
 body {
   background: #0b0f14;
-  color: #00ffcc;
+  color: #e6edf3;
   font-family: Arial;
 }
 
 h2 {
   color: #ffaa00;
+  margin-top: 30px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-.box {
-  border: 1px solid #1f2a33;
+th, td {
   padding: 8px;
-  background: #11161c;
+  text-align: left;
+  border-bottom: 1px solid #1f2a33;
 }
 
+th {
+  color: #8a99a8;
+}
+
+.green { color: #00ff9c; }
+.red { color: #ff4d4f; }
+
+.widget {
+  height: 80px;
+}
 </style>
 
 <script src="https://s3.tradingview.com/tv.js"></script>
@@ -35,54 +46,72 @@ h2 {
 
 <body>
 
-<h1>📊 PAINEL MACRO GLOBAL</h1>
+<h1>📊 TERMINAL MACRO GLOBAL</h1>
 
 <!-- ================= MACRO ================= -->
 <h2>🌎 Macro</h2>
-<div class="grid">
+<table>
+<tr><th>Ativo</th><th>Gráfico</th></tr>
 
-<div class="box" id="dolar"></div>
-<div class="box" id="spx"></div>
-<div class="box" id="us10y"></div>
+<tr><td>DXY</td><td><div id="dxy" class="widget"></div></td></tr>
+<tr><td>S&P500</td><td><div id="spx" class="widget"></div></td></tr>
+<tr><td>VIX</td><td><div id="vix" class="widget"></div></td></tr>
+<tr><td>US10Y</td><td><div id="us10y" class="widget"></div></td></tr>
 
-</div>
+</table>
 
 <!-- ================= FOREX ================= -->
 <h2>💱 Forex</h2>
-<div class="grid">
+<table>
 
-<div class="box" id="eurusd"></div>
-<div class="box" id="gbpusd"></div>
-<div class="box" id="usdjpy"></div>
+<tr><th>Par</th><th>Gráfico</th></tr>
 
-<div class="box" id="usdcad"></div>
-<div class="box" id="usdchf"></div>
-<div class="box" id="usdsek"></div>
+<tr><td>EURUSD</td><td><div id="eurusd"></div></td></tr>
+<tr><td>GBPUSD</td><td><div id="gbpusd"></div></td></tr>
+<tr><td>USDJPY</td><td><div id="usdjpy"></div></td></tr>
 
-<div class="box" id="usdmxn"></div>
-<div class="box" id="usdzar"></div>
-<div class="box" id="usdbrl"></div>
+<tr><td>USDCAD</td><td><div id="usdcad"></div></td></tr>
+<tr><td>USDCHF</td><td><div id="usdchf"></div></td></tr>
+<tr><td>USDSEK</td><td><div id="usdsek"></div></td></tr>
 
-</div>
+<tr><td>USDBRL</td><td><div id="usdbrl"></div></td></tr>
+<tr><td>USDMXN</td><td><div id="usdmxn"></div></td></tr>
+<tr><td>USDZAR</td><td><div id="usdzar"></div></td></tr>
+
+</table>
 
 <!-- ================= COMMODITIES ================= -->
 <h2>🛢️ Commodities</h2>
-<div class="grid">
+<table>
 
-<div class="box" id="gold"></div>
-<div class="box" id="oil"></div>
-<div class="box" id="silver"></div>
+<tr><th>Ativo</th><th>Gráfico</th></tr>
 
-</div>
+<tr><td>Ouro</td><td><div id="gold"></div></td></tr>
+<tr><td>Prata</td><td><div id="silver"></div></td></tr>
+<tr><td>Petróleo</td><td><div id="oil"></div></td></tr>
+
+</table>
+
+<!-- ================= JUROS ================= -->
+<h2>📉 Juros Globais</h2>
+<table>
+
+<tr><th>Ativo</th><th>Gráfico</th></tr>
+
+<tr><td>US 2Y</td><td><div id="us2y"></div></td></tr>
+<tr><td>US 5Y</td><td><div id="us5y"></div></td></tr>
+<tr><td>US 10Y</td><td><div id="us10y2"></div></td></tr>
+
+</table>
 
 <script>
 
-function createWidget(id, symbol) {
+function widget(id, symbol) {
   new TradingView.widget({
     "container_id": id,
     "symbol": symbol,
     "width": "100%",
-    "height": 250,
+    "height": 80,
     "theme": "dark",
     "style": "1",
     "hide_top_toolbar": true,
@@ -91,27 +120,33 @@ function createWidget(id, symbol) {
 }
 
 /* MACRO */
-createWidget("dolar", "FX:USDBRL");
-createWidget("spx", "SP:SPX");
-createWidget("us10y", "TVC:US10Y");
+widget("dxy", "TVC:DXY");
+widget("spx", "SP:SPX");
+widget("vix", "TVC:VIX");
+widget("us10y", "TVC:US10Y");
 
 /* FOREX */
-createWidget("eurusd", "FX:EURUSD");
-createWidget("gbpusd", "FX:GBPUSD");
-createWidget("usdjpy", "FX:USDJPY");
+widget("eurusd", "FX:EURUSD");
+widget("gbpusd", "FX:GBPUSD");
+widget("usdjpy", "FX:USDJPY");
 
-createWidget("usdcad", "FX:USDCAD");
-createWidget("usdchf", "FX:USDCHF");
-createWidget("usdsek", "FX:USDSEK");
+widget("usdcad", "FX:USDCAD");
+widget("usdchf", "FX:USDCHF");
+widget("usdsek", "FX:USDSEK");
 
-createWidget("usdmxn", "FX:USDMXN");
-createWidget("usdzar", "FX:USDZAR");
-createWidget("usdbrl", "FX:USDBRL");
+widget("usdbrl", "FX:USDBRL");
+widget("usdmxn", "FX:USDMXN");
+widget("usdzar", "FX:USDZAR");
 
 /* COMMODITIES */
-createWidget("gold", "OANDA:XAUUSD");
-createWidget("oil", "TVC:USOIL");
-createWidget("silver", "OANDA:XAGUSD");
+widget("gold", "OANDA:XAUUSD");
+widget("silver", "OANDA:XAGUSD");
+widget("oil", "TVC:USOIL");
+
+/* JUROS */
+widget("us2y", "TVC:US02Y");
+widget("us5y", "TVC:US05Y");
+widget("us10y2", "TVC:US10Y");
 
 </script>
 
